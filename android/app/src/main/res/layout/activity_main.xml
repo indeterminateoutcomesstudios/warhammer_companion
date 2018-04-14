@@ -57,4 +57,23 @@
         style="@style/Widget.AppCompat.Button.Colored"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_write" />
+
+    <Button
+        android:id="@+id/btn_points"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:text="@string/message_points_tag"
+        style="@style/Widget.AppCompat.Button.Colored"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_read" />
+
+    <TextView
+        android:id="@+id/tv_points"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:text="Points : 0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_points" />
 </android.support.constraint.ConstraintLayout>

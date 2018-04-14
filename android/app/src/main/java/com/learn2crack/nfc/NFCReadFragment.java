@@ -31,6 +31,8 @@ public class NFCReadFragment extends DialogFragment {
 
     public static final String TAG = NFCReadFragment.class.getSimpleName();
 
+    private String nfcInfo;
+
     public static NFCReadFragment newInstance() {
 
         return new NFCReadFragment();
@@ -67,8 +69,12 @@ public class NFCReadFragment extends DialogFragment {
     }
 
     public void onNfcDetected(Ndef ndef){
-
         readFromNFC(ndef);
+        mTvMessage.setText(this.nfcInfo);
+    }
+
+    public String getNfcInfo() {
+        return this.nfcInfo;
     }
 
     private void readFromNFC(Ndef ndef) {
@@ -77,7 +83,6 @@ public class NFCReadFragment extends DialogFragment {
             ndef.connect();
             NdefMessage ndefMessage = ndef.getNdefMessage();
             String message = new String(ndefMessage.getRecords()[0].getPayload());
-//            message = message.substring(3);
             Log.e(TAG, "readFromNFC: "+message);
             mTvMessage.setText(message);
 
@@ -87,7 +92,6 @@ public class NFCReadFragment extends DialogFragment {
 
         } catch (IOException | FormatException | NullPointerException e) {
             e.printStackTrace();
-
         }
     }
 
@@ -97,8 +101,7 @@ public class NFCReadFragment extends DialogFragment {
         String url = "http://" + SERVER_IP + ":" + SERVER_PORT + "/figurine/" + tagId;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
-                    mTvMessage.setText(response.toString());
-//                        mTextView.setText("Response: " + response.toString());
+                    this.nfcInfo = response.toString();
         },
                 error -> {
             Log.e("error", Arrays.toString(error.getStackTrace()));

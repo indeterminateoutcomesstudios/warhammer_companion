@@ -13,26 +13,32 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+import org.json.*;
 
 public class MainActivity extends AppCompatActivity implements Listener{
     
     public static final String TAG = MainActivity.class.getSimpleName();
 
-    public static final String SERVER_IP = "192.168.1.11";
+    public static final String SERVER_IP = "172.20.10.4";
     public static final int SERVER_PORT = 5000;
 
     private EditText tagIdEditText;
     private EditText tagNameEditText;
     private EditText tagPointsEditText;
+    private TextView tvPoints;
 
     private NFCWriteFragment mNfcWriteFragment;
     private NFCReadFragment mNfcReadFragment;
 
     private boolean isDialogDisplayed = false;
     private boolean isWrite = false;
+    private boolean isPoints = false;
 
     private NfcAdapter mNfcAdapter;
+
+    private int totalPoints = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +54,15 @@ public class MainActivity extends AppCompatActivity implements Listener{
         tagIdEditText = (EditText) findViewById(R.id.tag_id);
         tagNameEditText = (EditText) findViewById(R.id.tag_name);
         tagPointsEditText = (EditText) findViewById(R.id.tag_points);
+        tvPoints = (TextView) findViewById(R.id.tv_points);
+
         Button mBtWrite = (Button) findViewById(R.id.btn_write);
         Button mBtRead = (Button) findViewById(R.id.btn_read);
+        Button mBtPoints = (Button) findViewById(R.id.btn_points);
 
         mBtWrite.setOnClickListener(view -> showWriteFragment());
         mBtRead.setOnClickListener(view -> showReadFragment());
+        mBtPoints.setOnClickListener(view -> showPointFragment());
     }
 
     private void initNFC(){
@@ -87,6 +97,20 @@ public class MainActivity extends AppCompatActivity implements Listener{
 
     }
 
+    private void showPointFragment() {
+
+        isPoints = true;
+
+        mNfcReadFragment = (NFCReadFragment) getFragmentManager().findFragmentByTag(NFCReadFragment.TAG);
+
+        if (mNfcReadFragment == null) {
+
+            mNfcReadFragment = NFCReadFragment.newInstance();
+        }
+        mNfcReadFragment.show(getFragmentManager(),NFCReadFragment.TAG);
+
+    }
+
     @Override
     public void onDialogDisplayed() {
 
@@ -98,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements Listener{
 
         isDialogDisplayed = false;
         isWrite = false;
+        isPoints = false;
     }
 
     @Override
@@ -145,8 +170,21 @@ public class MainActivity extends AppCompatActivity implements Listener{
                     mNfcWriteFragment = (NFCWriteFragment) getFragmentManager().findFragmentByTag(NFCWriteFragment.TAG);
                     mNfcWriteFragment.onNfcDetected(ndef, tagId, tagName, tagPoints);
 
+                } else if (isPoints) {
+                    mNfcReadFragment = (NFCReadFragment)getFragmentManager().findFragmentByTag(NFCReadFragment.TAG);
+                    mNfcReadFragment.onNfcDetected(ndef);
+                    String tagInfo = mNfcReadFragment.getNfcInfo();
+                    if (tagInfo != null) {
+                        try {
+                            JSONObject mainObject = new JSONObject(tagInfo);
+                            String points = mainObject.getString("points");
+                            totalPoints += Integer.parseInt(points);
+                            tvPoints.setText("Points : " + totalPoints);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 } else {
-
                     mNfcReadFragment = (NFCReadFragment)getFragmentManager().findFragmentByTag(NFCReadFragment.TAG);
                     mNfcReadFragment.onNfcDetected(ndef);
                 }
