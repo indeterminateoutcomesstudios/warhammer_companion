@@ -21,8 +21,10 @@ public class MainActivity extends AppCompatActivity implements Listener{
     
     public static final String TAG = MainActivity.class.getSimpleName();
 
-    public static final String SERVER_IP = "172.20.10.4";
+    public static final String SERVER_IP = "192.168.0.50";
     public static final int SERVER_PORT = 5000;
+
+    private static int totalPoints = 0;
 
     private EditText tagIdEditText;
     private EditText tagNameEditText;
@@ -37,8 +39,6 @@ public class MainActivity extends AppCompatActivity implements Listener{
     private boolean isPoints = false;
 
     private NfcAdapter mNfcAdapter;
-
-    private int totalPoints = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements Listener{
         tagNameEditText = (EditText) findViewById(R.id.tag_name);
         tagPointsEditText = (EditText) findViewById(R.id.tag_points);
         tvPoints = (TextView) findViewById(R.id.tv_points);
+        tvPoints.setText("Points : " + totalPoints);
 
         Button mBtWrite = (Button) findViewById(R.id.btn_write);
         Button mBtRead = (Button) findViewById(R.id.btn_read);
