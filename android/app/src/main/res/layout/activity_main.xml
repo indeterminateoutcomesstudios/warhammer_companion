@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
 
@@ -21,6 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/id"
+            android:backgroundTint="@android:color/holo_orange_light"
+            android:textCursorDrawable="@android:color/holo_orange_light"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:inputType="text" />
@@ -29,6 +32,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/name"
+            android:backgroundTint="@android:color/holo_orange_light"
+            android:textCursorDrawable="@android:color/holo_orange_light"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tag_id"
             android:inputType="text"/>
@@ -39,36 +44,44 @@
             android:layout_height="wrap_content"
             android:hint="@string/points"
             android:inputType="text"
+            android:backgroundTint="@android:color/holo_orange_light"
+            android:textCursorDrawable="@android:color/holo_orange_light"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tag_name" />
 
         <Button
             android:id="@+id/btn_write"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:background="@android:color/holo_orange_light"
             android:text="Load Figurine"
-            style="@style/Widget.AppCompat.Button.Colored"
+            android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tag_points" />
 
         <Button
             android:id="@+id/btn_read"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:background="@android:color/holo_orange_light"
             android:text="Figurine Info"
-            style="@style/Widget.AppCompat.Button.Colored"
+            android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_write" />
 
         <Button
             android:id="@+id/btn_points"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:background="@android:color/holo_orange_light"
             android:text="@string/message_points_tag"
-            style="@style/Widget.AppCompat.Button.Colored"
+            android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_read" />
 

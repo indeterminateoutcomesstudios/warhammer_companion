@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements Listener{
     
     public static final String TAG = MainActivity.class.getSimpleName();
 
-    public static final String SERVER_IP = "192.168.0.50";
+    public static final String SERVER_IP = "10.136.216.51";
     public static final int SERVER_PORT = 5000;
 
     private static int totalPoints = 0;
